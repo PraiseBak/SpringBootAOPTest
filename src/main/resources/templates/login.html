@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>AllInOne</title>
+    <title>Login</title>
 </head>
-
 <body>
-
-<nav>
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
-        </ul>
+<h1>Login</h1>
+<form th:action="@{/user/login}" method="post">
+    <div>
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username"/>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password"/>
+        </div>
+        <button type="submit">Login</button>
     </div>
-</nav>
-
-<h1 th:text="${message}"></h1>
+    <div class="errorError">
+        <!--/*@thymesVar id="errorMsg" type="java.lang.String"*/-->
+        <p th:text="${errorMsg}"></p>
+    </div>
+</form>
 </body>
+
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
