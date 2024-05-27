@@ -12,9 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
-
-
-
 @Aspect
 @Component
 @RequiredArgsConstructor
@@ -22,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class TimeLogAOP {
 
     private final LogTrace logTrace;
+
 
     @Pointcut("execution(* com.study.allinonestudy.service..*(..))")
     public void allService() {}
@@ -34,12 +32,12 @@ public class TimeLogAOP {
         TraceStatus traceStatus = logTrace.begin(joinPoint.getSignature().toShortString());
         try {
             Object result = joinPoint.proceed();
+            logTrace.end(traceStatus);
             return result;
         } catch (Exception e) {
+            e.printStackTrace();
             logTrace.exception(traceStatus, e);
             throw e;
-        } finally {
-            logTrace.end(traceStatus);
         }
     }
 }
