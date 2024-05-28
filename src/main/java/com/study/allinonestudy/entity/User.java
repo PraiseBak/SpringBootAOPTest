@@ -62,6 +62,9 @@ public class User implements UserDetails {
     @ColumnDefault("'USER'")
     private List<Role> roles = new ArrayList<>(List.of(Role.USER));
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
+    private List<Board> boardList = new ArrayList<>();
+
     public User(UserRequestDto userDto){
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.map(userDto,this);
@@ -77,9 +80,7 @@ public class User implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
+
 
     @Override
     public String getPassword() {
