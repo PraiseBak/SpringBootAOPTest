@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,7 +56,7 @@ public class Board {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User user;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

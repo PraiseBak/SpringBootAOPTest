@@ -46,15 +46,12 @@ public class PrevLoginFilter extends OncePerRequestFilter {
 
         //username있으면 로그인된것이라 가정
         if(username != null) {
-            System.out.println("username 있음 = " + username);
-
             User user = userService.findByUsername(username);
             Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, null,authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        System.out.println("없음");
         filterChain.doFilter(request, response);
     }
 }

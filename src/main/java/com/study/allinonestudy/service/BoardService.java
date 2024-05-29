@@ -5,6 +5,8 @@ import com.study.allinonestudy.entity.User;
 import com.study.allinonestudy.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +18,15 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class BoardService {
 
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
-    private UserService userService;
+    private final UserService userService;
 
-    public List<Board> findAllBoards() {
+    private final PageService pageService;
 
+    public List<Board> findAllBoards(int page) {
+        Pageable pageable = pageService.getPageable(page);
+        return boardRepository.findAll(pageable).stream().toList();
     }
 
     @Transactional
